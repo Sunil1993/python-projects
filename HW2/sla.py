@@ -120,12 +120,16 @@ def calculate_spla_applicant(data):
     # If all LHSA beds are already full do not check for intersection
     if lhsaBinary.count('1') != 7:
         matchingApplicantsId = list(set(lhsaApplicantIds) & set(splaApplicantIds))
-        return get_best_applicant_from_list(matchingApplicantsId, max, selectedId, splaBinary)
+        selectedId = get_best_applicant_from_list(matchingApplicantsId, max, selectedId, splaBinary)
+
+    if selectedId != None:
+        return selectedId
 
     return get_best_applicant_from_list(splaApplicantIds, max, selectedId, splaBinary)
 
 
 f = open('output.txt', 'w')
 result = calculate_spla_applicant(data)
+print result
 f.write(result)
 f.close()
