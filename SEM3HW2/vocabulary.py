@@ -1,6 +1,5 @@
 import sys
 import os
-import math
 from collections import Counter
 
 stopWords = ["a", "im", "am", "an", "and", "at", "be", "by", "can", "could", "did", "do", "from", "for", "have",
@@ -12,12 +11,13 @@ stopWords = ["a", "im", "am", "an", "and", "at", "be", "by", "can", "could", "di
 def Diff(li1, li2):
     return [item for item in li1  if item not in li2]
 
+
 def extractWords(filePath):
     fileContent = None
     with open(filePath) as fp:
         fileContent = fp.read().replace('\n', ' ').lower()
     # return filter(None, map(lambda word: ''.join(filter(str.isalnum(), word)), fileContent.split()))
-    return filter(None, map(lambda word: ''.join(filter(str.isalpha, word)), fileContent.split()))
+    return filter(None, Diff(map(lambda word: ''.join(filter(str.isalpha, word)), fileContent.split()), stopWords))
 
 
 def dirWalk(fileRoot):
@@ -44,17 +44,17 @@ def readPath(inputPath):
     positiveWords = []
     negativeWords = []
 
-    positiveDeceptiveWords = Diff(dirWalk(positiveDeceptive), stopWords)
+    positiveDeceptiveWords = dirWalk(positiveDeceptive)
     positiveWords += positiveDeceptiveWords
 
-    positiveTruthfulWords = Diff(dirWalk(positiveTruthful), stopWords)
+    positiveTruthfulWords = dirWalk(positiveTruthful)
     positiveWords += positiveTruthfulWords
 
-    negativeDeceptiveWords = Diff(dirWalk(negativeDeceptive), stopWords)
+    negativeDeceptiveWords = dirWalk(negativeDeceptive)
     negativeWords += negativeDeceptiveWords
 
 
-    negativeTruthfulWords = Diff(dirWalk(negativeTruthful), stopWords)
+    negativeTruthfulWords = dirWalk(negativeTruthful)
     negativeWords += negativeTruthfulWords
 
     uniqueWords = positiveWords  + negativeWords
