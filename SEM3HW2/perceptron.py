@@ -1,9 +1,5 @@
 import sys
 import os
-from collections import Counter
-from scipy import sparse
-from scipy.stats import uniform
-import numpy
 
 stopWords = ["a", "im", "am", "an", "and", "at", "be", "by", "can", "could", "did", "do", "from", "for", "have",
              "had", "has", "he", "her", "hers", "his", "is", "in", "i", "it", "its", "me", "mine", "my", "on",
@@ -36,7 +32,6 @@ def getFilePaths(fileRoot):
             paths.append(os.path.join(root, f))
 
     return paths
-
 
 def loadVocabulary():
     vocabulary = {}
@@ -117,14 +112,16 @@ def calculatePerceptron(vocabulary, inputPath):
                 b2 += y2
 
     with open("perceptron.txt", "w+") as f:
+        f.write("%s %s" % ("percentron_words", vocabularyCount))
         for index in range(0, vocabularyCount):
-            f.write("%s %s" % (vocabularyWords[index], w[index]))
             f.write("\n")
+            f.write("%s %s" % (vocabularyWords[index], w[index]))
 
         f.write("\n")
-        f.write("%s" % (b1))
-        f.write(("\n"))
-        f.write("%s" % (b2))
+        f.write("%s %s" % ("b1b2", "1"))
+        f.write("\n")
+        f.write("%s %s" % (b1, b2))
+
 
 
 if __name__ == "__main__":

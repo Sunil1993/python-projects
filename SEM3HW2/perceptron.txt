@@ -1,3 +1,4 @@
+percentron_words 1000
 shop 0
 all -4
 cleanedthe 0
@@ -998,6 +999,5 @@ time 0
 fresh -1
 having -2
 once -1
-
--1
-1
+b1b2 1
+-1 1
